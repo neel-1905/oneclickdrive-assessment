@@ -21,6 +21,10 @@ type ActionMenuProps = {
 };
 
 const ActionMenu = (props: ActionMenuProps) => {
+  const { currentStatus } = props;
+
+  console.log(currentStatus);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>

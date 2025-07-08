@@ -6,7 +6,7 @@ export const db = new Database(`db/database.sqlite`);
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
-    username TEXT UNIQUE NOT NULL,
+    email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL
   );
 `);
@@ -30,7 +30,7 @@ db.exec(`
     id TEXT PRIMARY KEY,
     listing_id TEXT NOT NULL,
     action TEXT CHECK(action IN ('approve', 'reject', 'edit')) NOT NULL,
-    admin_username TEXT NOT NULL,
+    admin_email TEXT NOT NULL,
     field TEXT,
     old_value TEXT,
     new_value TEXT,

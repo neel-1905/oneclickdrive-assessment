@@ -1,3 +1,9 @@
+export type USER = {
+  id: string;
+  email: string;
+  password: string;
+} | null;
+
 export type STATUS = "approved" | "rejected" | "pending";
 
 export type CAR_RENTAL = {
