@@ -31,6 +31,7 @@ const LoginForm = () => {
   const { isSubmitting } = form.formState;
 
   const onLoginFormSubmit = async (data: z.infer<typeof loginSchema>) => {
+    let result;
     const res = await fetch(`/api/login`, {
       method: "POST",
       headers: {
@@ -40,12 +41,15 @@ const LoginForm = () => {
       credentials: "include",
     });
 
-    const result = await res.json();
-
-    console.log(result);
+    try {
+      result = await res.json();
+    } catch (error) {
+      setFormError("Unexpected server error");
+      console.log(error);
+    }
 
     if (!res.ok) {
-      setFormError(result.error);
+      setFormError(result?.error);
       return;
     }
 
