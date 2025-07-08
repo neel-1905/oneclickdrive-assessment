@@ -28,7 +28,6 @@ const ActionMenu = (props: ActionMenuProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" side="left" className="w-42">
         <DropdownMenuLabel>Status</DropdownMenuLabel>
-        <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem className="cursor-pointer">
             <ClipboardCheck />
@@ -43,6 +42,7 @@ const ActionMenu = (props: ActionMenuProps) => {
 
         <DropdownMenuSeparator />
 
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuGroup>
           <DropdownMenuItem className="cursor-pointer">
             <ClipboardPen />
