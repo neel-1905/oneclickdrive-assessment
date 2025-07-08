@@ -10,7 +10,8 @@ const DashboardHeader = () => {
   const pageTitle = navRoutes?.find((route) => route.url === pathName)?.title;
 
   return (
-    <header className="h-[57px] py-2 px-4 border-b border-sidebar-border sticky top-0 z-10 bg-background">
+    // sticky top-0 z-10
+    <header className="h-[57px] py-2 px-4 border-b border-sidebar-border  bg-background">
       <div className="flex items-center size-full py-2.5 gap-4">
         <SidebarTrigger />
 
