@@ -4,6 +4,8 @@ export type CAR_RENTAL = {
   id: string;
   name: string;
   location: string;
-  pricePerDay: number;
+  price_per_day: number;
   status: STATUS;
+  createdAt: string;
+  updatedAt: string;
 };
