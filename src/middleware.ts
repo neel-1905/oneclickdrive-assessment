@@ -31,14 +31,15 @@ import { NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
+  // fix
   const session = request.cookies.get("session")?.value;
-
-  if (!session) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
 
   if (request.nextUrl.pathname.startsWith("/api")) {
     return NextResponse.next();
+  }
+
+  if (!session) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();
