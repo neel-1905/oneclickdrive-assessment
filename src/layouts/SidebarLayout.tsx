@@ -7,9 +7,9 @@ const SidebarLayout = ({ children }: { children: ReactNode }) => {
   return (
     <SidebarProvider>
       <SideNav />
-      <div className="grow bg-background flex flex-col">
+      <div className="flex-1 bg-background flex flex-col">
         <DashboardHeader />
-        <main className="grow p-4 flex flex-col gap-5">{children}</main>
+        <main className="flex-1 p-4 flex flex-col gap-5">{children}</main>
       </div>
     </SidebarProvider>
   );
