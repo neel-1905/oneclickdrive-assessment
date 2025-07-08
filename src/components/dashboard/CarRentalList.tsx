@@ -2,21 +2,16 @@ import React from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { dummyCarRentalList } from "@/constants";
-import { Button } from "../ui/button";
 import StatusBadge from "./StatusBadge";
 import ActionMenu from "./ActionMenu";
 import { CAR_RENTAL } from "@/types";
 
 const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
-  console.log("car listigns", listings);
-
   return (
     <Table className="w-full">
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
