@@ -12,15 +12,17 @@ import { dummyCarRentalList } from "@/constants";
 import { Button } from "../ui/button";
 import StatusBadge from "./StatusBadge";
 import ActionMenu from "./ActionMenu";
+import { CAR_RENTAL } from "@/types";
 
-const CarRentalList = () => {
+const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
+  console.log("car listigns", listings);
+
   return (
     <Table className="w-full">
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
       <TableHeader>
         <TableRow>
           <TableHead className="py-4">SN.</TableHead>
-          <TableHead>ID</TableHead>
           <TableHead>Name</TableHead>
           <TableHead>Location</TableHead>
           <TableHead>Price Per Day</TableHead>
@@ -29,15 +31,14 @@ const CarRentalList = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {dummyCarRentalList?.map(
-          ({ id, location, name, pricePerDay, status }, index) => {
+        {listings?.map(
+          ({ id, location, name, price_per_day, status }, index) => {
             return (
               <TableRow key={id}>
                 <TableCell className="py-4">{index + 1}</TableCell>
-                <TableCell>{id}</TableCell>
                 <TableCell className="font-medium">{name}</TableCell>
                 <TableCell>{location}</TableCell>
-                <TableCell>{pricePerDay}</TableCell>
+                <TableCell>{price_per_day}</TableCell>
                 <TableCell className="text-center">
                   <StatusBadge status={status} />
                 </TableCell>
