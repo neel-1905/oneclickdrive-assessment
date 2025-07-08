@@ -118,7 +118,7 @@
 
 @layer base {
   * {
-    @apply border-border  box-border;
+    @apply border-border box-border;
   }
   body {
     @apply bg-background text-foreground font-roboto h-screen;
@@ -133,7 +133,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-none;
   }
   body {
     @apply bg-background text-foreground;

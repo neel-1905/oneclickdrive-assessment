@@ -11,7 +11,7 @@ const Dashboard = () => {
         {/* This wrapper enables both vertical + horizontal scrolling */}
         <div className="grow shrink-0  rounded-lg border min-h-0">
           {/* This ensures table is wide enough to scroll horizontally */}
-          <div className="w-full min-w-[900px] overflow-auto">
+          <div className="w-full min-w-max overflow-auto">
             <CarRentalList />
           </div>
         </div>

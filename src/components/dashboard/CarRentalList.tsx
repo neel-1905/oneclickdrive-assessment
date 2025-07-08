@@ -10,6 +10,8 @@ import {
 } from "../ui/table";
 import { dummyCarRentalList } from "@/constants";
 import { Button } from "../ui/button";
+import StatusBadge from "./StatusBadge";
+import ActionMenu from "./ActionMenu";
 
 const CarRentalList = () => {
   return (
@@ -17,28 +19,30 @@ const CarRentalList = () => {
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
       <TableHeader>
         <TableRow>
-          <TableHead>SN.</TableHead>
+          <TableHead className="py-4">SN.</TableHead>
           <TableHead>ID</TableHead>
-          <TableHead className="min-w-[200px]">Name</TableHead>
+          <TableHead>Name</TableHead>
           <TableHead>Location</TableHead>
           <TableHead>Price Per Day</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Action</TableHead>
+          <TableHead className="text-center">Status</TableHead>
+          <TableHead className="text-center">Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {dummyCarRentalList?.map(
           ({ id, location, name, pricePerDay, status }, index) => {
             return (
-              <TableRow key={`car-${id}`}>
-                <TableCell>{index + 1}</TableCell>
+              <TableRow key={id}>
+                <TableCell className="py-4">{index + 1}</TableCell>
                 <TableCell>{id}</TableCell>
                 <TableCell className="font-medium">{name}</TableCell>
                 <TableCell>{location}</TableCell>
                 <TableCell>{pricePerDay}</TableCell>
-                <TableCell>{status}</TableCell>
-                <TableCell>
-                  <Button>Action</Button>
+                <TableCell className="text-center">
+                  <StatusBadge status={status} />
+                </TableCell>
+                <TableCell className="text-center">
+                  <ActionMenu currentStatus={status} />
                 </TableCell>
               </TableRow>
             );
