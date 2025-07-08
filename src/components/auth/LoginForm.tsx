@@ -46,6 +46,7 @@ const LoginForm = () => {
     } catch (error) {
       setFormError("Unexpected server error");
       console.log(error);
+      return;
     }
 
     if (!res.ok) {
