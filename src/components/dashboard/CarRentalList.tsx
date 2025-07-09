@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -7,11 +7,39 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { CAR_RENTAL, STATUS } from "@/types";
 import StatusBadge from "./StatusBadge";
 import ActionMenu from "./ActionMenu";
-import { CAR_RENTAL } from "@/types";
 
 const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
+  const [carList, setCarList] = useState(listings);
+
+  const handleStatusChange = async (id: string, status: STATUS) => {
+    console.log("updating", id, status);
+
+    const res = await fetch(`/api/listings/status`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ id, status }),
+    });
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      console.log("Error", result?.error);
+      return;
+    }
+
+    alert(result.message);
+
+    setCarList((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, status: status } : item))
+    );
+  };
+
   return (
     <Table className="w-full">
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
@@ -26,19 +54,26 @@ const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {listings?.map(
-          ({ id, location, name, price_per_day, status }, index) => {
+        {carList?.map(
+          (
+            { id, createdAt, location, name, price_per_day, status, updatedAt },
+            index
+          ) => {
             return (
               <TableRow key={id}>
                 <TableCell className="py-4">{index + 1}</TableCell>
                 <TableCell className="font-medium">{name}</TableCell>
                 <TableCell>{location}</TableCell>
                 <TableCell>{price_per_day}</TableCell>
-                <TableCell className="text-center">
+                <TableCell className="text-center w-[120px]">
                   <StatusBadge status={status} />
                 </TableCell>
                 <TableCell className="text-center">
-                  <ActionMenu currentStatus={status} />
+                  <ActionMenu
+                    listingId={id}
+                    currentStatus={status}
+                    onStatusChange={handleStatusChange}
+                  />
                 </TableCell>
               </TableRow>
             );

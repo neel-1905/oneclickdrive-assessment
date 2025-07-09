@@ -17,28 +17,38 @@ import { STATUS } from "@/types";
 
 type ActionMenuProps = {
   currentStatus: STATUS;
-  onStatusChange?: (newStatus: STATUS) => void;
+  onStatusChange: (id: string, newStatus: STATUS) => void;
+  listingId: string;
 };
 
 const ActionMenu = (props: ActionMenuProps) => {
-  const { currentStatus } = props;
-
-  console.log(currentStatus);
+  const { currentStatus, onStatusChange, listingId } = props;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <EllipsisVertical size={20} className="outline-none cursor-pointer" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" side="left" className="w-42">
+      <DropdownMenuContent
+        align="start"
+        side="left"
+        className="w-42"
+        alignOffset={20}
+      >
         <DropdownMenuLabel>Status</DropdownMenuLabel>
         <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer">
+          <DropdownMenuItem
+            onClick={() => onStatusChange(listingId, "approved")}
+            className="cursor-pointer"
+          >
             <ClipboardCheck />
             <span>Approve</span>
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="cursor-pointer">
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => onStatusChange(listingId, "rejected")}
+          >
             <ClipboardX />
             <span>Reject</span>
           </DropdownMenuItem>
