@@ -55,10 +55,7 @@ const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
       </TableHeader>
       <TableBody>
         {carList?.map(
-          (
-            { id, createdAt, location, name, price_per_day, status, updatedAt },
-            index
-          ) => {
+          ({ id, location, name, price_per_day, status }, index) => {
             return (
               <TableRow key={id}>
                 <TableCell className="py-4">{index + 1}</TableCell>

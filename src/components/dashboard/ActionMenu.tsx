@@ -22,7 +22,7 @@ type ActionMenuProps = {
 };
 
 const ActionMenu = (props: ActionMenuProps) => {
-  const { currentStatus, onStatusChange, listingId } = props;
+  const { onStatusChange, listingId } = props;
 
   return (
     <DropdownMenu>
