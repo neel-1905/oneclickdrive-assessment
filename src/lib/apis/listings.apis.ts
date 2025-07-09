@@ -1,4 +1,4 @@
-import { CAR_RENTAL, CAR_RENTAL_UPDATE, STATUS } from "@/types";
+import { CAR_RENTAL, STATUS } from "@/types";
 import { db } from "../../../db/schema";
 
 const LIMIT = 8;

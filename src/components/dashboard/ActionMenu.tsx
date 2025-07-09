@@ -16,10 +16,6 @@ import {
 import { CAR_RENTAL, STATUS } from "@/types";
 
 type ActionMenuProps = {
-  // currentStatus: STATUS;
-  // onStatusChange: (id: string, newStatus: STATUS) => void;
-  // listingId: string;
-  // onEditClick: (data: CAR_RENTAL) => void;
   listing: CAR_RENTAL;
   onStatusChange: (id: string, newStatus: STATUS) => void;
   onEditClick: (data: CAR_RENTAL) => void;

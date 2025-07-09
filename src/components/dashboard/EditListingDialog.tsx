@@ -26,7 +26,6 @@ import {
   Select,
   SelectContent,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
@@ -75,7 +74,7 @@ const EditListingDialog = (props: EditListingDialogProps) => {
             <DialogHeader>
               <DialogTitle>Edit Listing</DialogTitle>
               <DialogDescription>
-                Make changes to the listing here. Click save when you're done
+                Make changes to the listing here. Click save when you are done
               </DialogDescription>
             </DialogHeader>
 
