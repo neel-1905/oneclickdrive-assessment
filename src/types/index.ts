@@ -17,7 +17,6 @@ export type CAR_RENTAL = {
 };
 
 export type CAR_RENTAL_UPDATE = {
-  id: string;
   name?: string;
   location?: string;
   price_per_day?: number;
