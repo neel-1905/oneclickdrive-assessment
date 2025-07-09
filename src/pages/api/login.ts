@@ -23,11 +23,15 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         .status(401)
         .json({ error: "Invalid user details!", success: false });
 
-    const cookie = serialize("session", user.email, {
-      path: "/",
-      httpOnly: true,
-      // maxAge: 60 * 60 * 24,
-    });
+    const cookie = serialize(
+      "session",
+      JSON.stringify({ email: user.email, id: user.id }),
+      {
+        path: "/",
+        httpOnly: true,
+        // maxAge: 60 * 60 * 24,
+      }
+    );
 
     res.setHeader("Set-Cookie", cookie);
 

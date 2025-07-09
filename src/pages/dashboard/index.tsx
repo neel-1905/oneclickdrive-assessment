@@ -2,6 +2,7 @@ import CarRentalList from "@/components/dashboard/CarRentalList";
 import ListingPagination from "@/components/dashboard/ListingPagination";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import { getAllListings } from "@/lib/apis/listings.apis";
+import { useSessionUser } from "@/lib/useSessionUser";
 import { CAR_RENTAL } from "@/types";
 import { GetServerSideProps } from "next";
 import React from "react";
@@ -14,6 +15,10 @@ type DashboardProps = {
 };
 
 const Dashboard = ({ listings, limit, page, totalCount }: DashboardProps) => {
+  const user = useSessionUser();
+
+  console.log(user);
+
   const totalPages = Math.ceil(totalCount / limit);
 
   return (
