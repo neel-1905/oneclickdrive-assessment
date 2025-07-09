@@ -13,16 +13,22 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
 } from "../ui/dropdown-menu";
-import { STATUS } from "@/types";
+import { CAR_RENTAL, STATUS } from "@/types";
 
 type ActionMenuProps = {
-  currentStatus: STATUS;
+  // currentStatus: STATUS;
+  // onStatusChange: (id: string, newStatus: STATUS) => void;
+  // listingId: string;
+  // onEditClick: (data: CAR_RENTAL) => void;
+  listing: CAR_RENTAL;
   onStatusChange: (id: string, newStatus: STATUS) => void;
-  listingId: string;
+  onEditClick: (data: CAR_RENTAL) => void;
 };
 
 const ActionMenu = (props: ActionMenuProps) => {
-  const { onStatusChange, listingId } = props;
+  const { onStatusChange, listing, onEditClick } = props;
+
+  const { id: listingId } = listing;
 
   return (
     <DropdownMenu>
@@ -58,7 +64,10 @@ const ActionMenu = (props: ActionMenuProps) => {
 
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer">
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => onEditClick(listing)}
+          >
             <ClipboardPen />
             <span>Edit</span>
           </DropdownMenuItem>
