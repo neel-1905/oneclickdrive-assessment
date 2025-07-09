@@ -1,3 +1,5 @@
+import FeedbackMessage from "@/components/shared/FeedbackMessage";
+import { FeedbackContextProvider } from "@/context/FeedbackContext";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 
@@ -11,8 +13,11 @@ const roboto = Roboto({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className={`${roboto.variable}`}>
-      <Component {...pageProps} />
-    </div>
+    <FeedbackContextProvider>
+      <FeedbackMessage />
+      <div className={`${roboto.variable}`}>
+        <Component {...pageProps} />
+      </div>
+    </FeedbackContextProvider>
   );
 }

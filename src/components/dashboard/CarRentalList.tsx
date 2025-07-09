@@ -10,10 +10,12 @@ import {
 import { CAR_RENTAL, STATUS } from "@/types";
 import StatusBadge from "./StatusBadge";
 import ActionMenu from "./ActionMenu";
-import { updateListing } from "@/lib/apis/listings.apis";
 import EditListingDialog from "./EditListingDialog";
+import { useFeedback } from "@/context/FeedbackContext";
 
 const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
+  const { show } = useFeedback();
+
   const [carList, setCarList] = useState(listings);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentDialogData, setCurrentDialogData] = useState<CAR_RENTAL | null>(
@@ -47,10 +49,11 @@ const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
 
     if (!res.ok) {
       console.log("Error", result?.error);
+      show("error", result.error);
       return;
     }
 
-    alert(result.message);
+    show("success", result.message);
 
     setCarList((prev) =>
       prev.map((item) => (item.id === id ? { ...item, status: status } : item))
@@ -74,10 +77,12 @@ const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
 
     if (!res.ok) {
       console.log("Error", result?.error);
+      show("error", result.error);
       return;
     }
 
     // alert(result.message);
+    show("success", result.message);
 
     setCarList((prev) =>
       prev.map((item) => (item.id === id ? { ...item, ...updatedData } : item))

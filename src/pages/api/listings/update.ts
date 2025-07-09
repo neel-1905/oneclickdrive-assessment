@@ -1,4 +1,4 @@
-import { updateListing, updateStatus } from "@/lib/apis/listings.apis";
+import { updateListing } from "@/lib/apis/listings.apis";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
