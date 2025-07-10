@@ -14,7 +14,7 @@ const Logs = (props: LogProps) => {
 
   return (
     <SidebarLayout>
-      <div className="border rounded-lg">
+      <div className="border rounded-lg overflow-auto">
         <LogsTable logs={logs} />
       </div>
     </SidebarLayout>

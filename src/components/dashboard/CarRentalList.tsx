@@ -131,44 +131,40 @@ const CarRentalList = ({
   };
 
   return (
-    <>
-      <Table className="w-full">
-        {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-        <TableHeader>
-          <TableRow>
-            <TableHead className="py-4">SN.</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Location</TableHead>
-            <TableHead>Price Per Day</TableHead>
-            <TableHead className="text-center">Status</TableHead>
-            <TableHead className="text-center">Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {carList?.map((car, index) => {
-            const { id, location, name, price_per_day, status } = car;
-            return (
-              <TableRow key={id}>
-                <TableCell className="py-4">{index + 1}</TableCell>
-                <TableCell className="font-medium">{name}</TableCell>
-                <TableCell>{location}</TableCell>
-                <TableCell>{price_per_day}</TableCell>
-                <TableCell className="text-center w-[120px]">
-                  <StatusBadge status={status} />
-                </TableCell>
-                <TableCell className="text-center">
-                  <ActionMenu
-                    listing={car}
-                    onStatusChange={handleStatusChange}
-                    onEditClick={() => handleDialogOpen(car)}
-                  />
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="py-4">SN.</TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>Location</TableHead>
+          <TableHead>Price Per Day</TableHead>
+          <TableHead className="text-center">Status</TableHead>
+          <TableHead className="text-center">Action</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {carList?.map((car, index) => {
+          const { id, location, name, price_per_day, status } = car;
+          return (
+            <TableRow key={id}>
+              <TableCell className="py-4">{index + 1}</TableCell>
+              <TableCell className="font-medium">{name}</TableCell>
+              <TableCell>{location}</TableCell>
+              <TableCell>{price_per_day}</TableCell>
+              <TableCell className="text-center w-[120px]">
+                <StatusBadge status={status} />
+              </TableCell>
+              <TableCell className="text-center">
+                <ActionMenu
+                  listing={car}
+                  onStatusChange={handleStatusChange}
+                  onEditClick={() => handleDialogOpen(car)}
+                />
+              </TableCell>
+            </TableRow>
+          );
+        })}
+      </TableBody>
       {currentDialogData && (
         <EditListingDialog
           handleDialogClose={handleDialogClose}
@@ -177,7 +173,7 @@ const CarRentalList = ({
           handleListingUpdate={handleListingUpdate}
         />
       )}
-    </>
+    </Table>
   );
 };
 

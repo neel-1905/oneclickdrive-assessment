@@ -67,7 +67,7 @@ const LogsTable = ({ logs }: { logs: LOG[] }) => {
             <TableRow key={id}>
               <TableCell className="py-4">{createdAt}</TableCell>
               <TableCell>{user_name}</TableCell>
-              <TableCell>
+              <TableCell className="wrap-normal">
                 {getActionPerformed({ from, to, action, user_name, target_id })}
               </TableCell>
             </TableRow>
