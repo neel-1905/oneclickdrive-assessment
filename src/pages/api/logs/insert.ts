@@ -10,8 +10,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { action, from, target_id, target_type, to, user_id, user_name } =
     req.body;
 
-  //   if (!id) return res.status(400).json({ success: false, error: "Missing id" });
-
   const createdLog = createLog({
     action,
     from,

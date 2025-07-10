@@ -29,19 +29,16 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       {
         path: "/",
         httpOnly: true,
-        // maxAge: 60 * 60 * 24,
       }
     );
 
     res.setHeader("Set-Cookie", cookie);
 
-    return res
-      .status(200)
-      .json({
-        message: "User login successful!",
-        success: true,
-        user: { id: user.id },
-      });
+    return res.status(200).json({
+      message: "User login successful!",
+      success: true,
+      user: { id: user.id },
+    });
   } catch (err) {
     return res
       .status(500)

@@ -58,7 +58,7 @@ const CarRentalFilters = ({ locations }: { locations: string[] }) => {
     setSelectedStatus("");
     router.push({
       pathname: router.pathname,
-      query: {}, // reset everything except page
+      query: {},
     });
     setSearch("");
   };

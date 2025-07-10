@@ -1,6 +1,6 @@
 import { db } from "./schema";
 
-const email = "admin@gmail.com"; // ← replace with dynamic value if needed
+const email = "admin@gmail.com";
 
 const userStmt = db.prepare(`
   SELECT * FROM users WHERE email = ?
