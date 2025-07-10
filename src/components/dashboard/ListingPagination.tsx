@@ -72,12 +72,6 @@ const ListingPagination = ({
           );
         })}
 
-        {/* {totalPages > 5 && (
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-        )} */}
-
         {!isLastPage && (
           <PaginationItem>
             <PaginationNext

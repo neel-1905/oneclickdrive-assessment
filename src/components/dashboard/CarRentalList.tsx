@@ -14,12 +14,10 @@ import EditListingDialog from "./EditListingDialog";
 import { useFeedback } from "@/context/FeedbackContext";
 import { useSessionUser } from "@/lib/useSessionUser";
 import { logAction } from "@/lib/apis/logs.actions";
-// import CarRentalFilters from "./CarRentalFilters";
 
 const CarRentalList = ({
   listings,
-}: // locations,
-{
+}: {
   listings: CAR_RENTAL[];
   locations: string[];
 }) => {
