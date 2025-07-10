@@ -22,7 +22,6 @@ const LogsTable = ({ logs }: { logs: LOG[] }) => {
     from,
     to,
     action,
-    user_name,
     target_id,
   }: ActionPerformed) => {
     switch (action) {
@@ -62,7 +61,7 @@ const LogsTable = ({ logs }: { logs: LOG[] }) => {
             from,
             to,
             action,
-            target_type,
+            // target_type,
             target_id,
           }) => (
             <TableRow key={id}>
