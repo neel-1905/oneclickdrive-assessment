@@ -7,6 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../ui/pagination";
+import { useRouter } from "next/router";
 
 const ListingPagination = ({
   currentPage,
@@ -15,17 +16,44 @@ const ListingPagination = ({
   currentPage: number;
   totalPages: number;
 }) => {
-  const pageLink = (page: number) => `/dashboard?page=${page}`;
+  const router = useRouter();
+  const currentQuery = router.query;
 
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
+
+  const handleNextClick = () => {
+    const newPage = currentPage + 1;
+    router.push({
+      pathname: router.pathname,
+      query: { ...currentQuery, page: newPage },
+    });
+  };
+
+  const handlePrevClick = () => {
+    const newPage = currentPage - 1;
+    router.push({
+      pathname: router.pathname,
+      query: { ...currentQuery, page: newPage },
+    });
+  };
+
+  const handlePageNumClick = (num: number) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...currentQuery, page: num },
+    });
+  };
 
   return (
     <Pagination className="justify-end py-2 px-2">
       <PaginationContent>
         {!isFirstPage ? (
           <PaginationItem>
-            <PaginationPrevious href={pageLink(currentPage - 1)} />
+            <PaginationPrevious
+              // href={pageLink(currentPage - 1)}
+              onClick={handlePrevClick}
+            />
           </PaginationItem>
         ) : null}
 
@@ -34,7 +62,8 @@ const ListingPagination = ({
           return (
             <PaginationItem key={pageNum}>
               <PaginationLink
-                href={pageLink(pageNum)}
+                // href={pageLink(pageNum)}
+                onClick={() => handlePageNumClick(pageNum)}
                 isActive={currentPage === pageNum}
               >
                 {pageNum}
@@ -51,7 +80,10 @@ const ListingPagination = ({
 
         {!isLastPage && (
           <PaginationItem>
-            <PaginationNext href={pageLink(currentPage + 1)} />
+            <PaginationNext
+              // href={pageLink(currentPage + 1)}
+              onClick={handleNextClick}
+            />
           </PaginationItem>
         )}
       </PaginationContent>

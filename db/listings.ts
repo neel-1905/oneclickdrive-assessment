@@ -7,30 +7,24 @@ const insert = db.prepare(`
     `);
 
 const cars = [
-  { name: "Ford EcoSport", location: "Nagpur", price: 1300 },
-  { name: "MG Hector", location: "Surat", price: 1600 },
-  { name: "Jeep Compass", location: "Lucknow", price: 1700 },
-  { name: "Nissan Magnite", location: "Patna", price: 1250 },
-  { name: "Hyundai Venue", location: "Bhopal", price: 1320 },
-  { name: "Toyota Fortuner", location: "Ranchi", price: 2200 },
-  { name: "Maruti Ciaz", location: "Amritsar", price: 1180 },
-  { name: "Honda Amaze", location: "Indore", price: 1120 },
-  { name: "Kia Carens", location: "Vadodara", price: 1380 },
-  { name: "Renault Triber", location: "Coimbatore", price: 1080 },
-  { name: "Tata Harrier", location: "Thiruvananthapuram", price: 1750 },
-  { name: "Skoda Kushaq", location: "Visakhapatnam", price: 1480 },
-  { name: "Hyundai Alcazar", location: "Mysore", price: 1550 },
-  { name: "Volkswagen Taigun", location: "Nashik", price: 1470 },
-  { name: "Maruti Ertiga", location: "Vijayawada", price: 1200 },
-  { name: "Toyota Innova Crysta", location: "Jodhpur", price: 1900 },
-  { name: "Honda WR-V", location: "Guwahati", price: 1150 },
-  { name: "Mahindra XUV700", location: "Dehradun", price: 1850 },
-  { name: "Nissan Kicks", location: "Raipur", price: 1290 },
-  { name: "Ford Aspire", location: "Udaipur", price: 1020 },
+  { name: "Hyundai Verna", price_per_day: 2200, location: "Mumbai" },
+  { name: "Hyundai Creta", price_per_day: 2500, location: "Mumbai" },
+  { name: "Hyundai Tucson", price_per_day: 3200, location: "Mumbai" },
+  { name: "Hyundai Elantra", price_per_day: 2800, location: "Mumbai" },
+  { name: "Hyundai Kona Electric", price_per_day: 3100, location: "Mumbai" },
+  { name: "Hyundai Aura", price_per_day: 1900, location: "Mumbai" },
+  { name: "Hyundai Exter", price_per_day: 2000, location: "Jaipur" },
+  { name: "Hyundai Santro", price_per_day: 1500, location: "Ahmedabad" },
+  {
+    name: "Hyundai Grand i10 Nios",
+    price_per_day: 1800,
+    location: "Hyderabad",
+  },
+  { name: "Hyundai Xcent", price_per_day: 1700, location: "Nagpur" },
 ];
 
 for (const car of cars) {
-  insert.run(randomUUID(), car.name, car.location, car.price);
+  insert.run(randomUUID(), car.name, car.location, car.price_per_day);
 }
 
 console.log("Inserted 10 cars");

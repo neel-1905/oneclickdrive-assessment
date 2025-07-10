@@ -1,26 +1,54 @@
 import { CAR_RENTAL, STATUS } from "@/types";
 import { db } from "../../../db/schema";
 
-const LIMIT = 8;
-
-export function getAllListings(
+export function getAllListings({
   page = 1,
-  limit = LIMIT
-): { listings: CAR_RENTAL[]; totalCount: number } {
+  limit = 8,
+  status,
+  location,
+  carName,
+}: {
+  page: number;
+  limit: number;
+  status?: STATUS;
+  location?: string;
+  carName?: string;
+}): { listings: CAR_RENTAL[]; totalCount: number } {
   const offset = (page - 1) * limit;
+
+  let base = "FROM listings WHERE 1=1";
+  const params: any[] = [];
+
+  if (status) {
+    base += " AND status = ?";
+    params.push(status);
+  }
+
+  if (location) {
+    base += " AND location LIKE ?";
+    params.push(`%${location}%`);
+  }
+
+  if (carName) {
+    base += " AND name LIKE ?";
+    params.push(`%${carName}%`);
+  }
+
   try {
-    const listingStmt = db.prepare(
-      "SELECT * FROM listings ORDER BY createdAt DESC LIMIT ? OFFSET ?"
-    );
-    const listings = listingStmt.all(limit, offset) as CAR_RENTAL[];
+    const totalStmt = db.prepare(`SELECT COUNT(*) as count ${base}`);
+    const { count } = totalStmt.get(...params) as { count: number };
 
-    const totalListingsStmt = db.prepare(
-      "SELECT COUNT(*) as count FROM listings"
-    );
-    const totalListings = totalListingsStmt.get() as { count: number };
-    const totalCount = totalListings.count;
+    const listingStmt = db.prepare(`
+      SELECT * ${base} 
+      ORDER BY createdAt DESC 
+      LIMIT ? OFFSET ?
+    `);
+    const listings = listingStmt.all(...params, limit, offset) as CAR_RENTAL[];
 
-    return { listings, totalCount };
+    return {
+      listings,
+      totalCount: count,
+    };
   } catch (err) {
     console.error("Error fetching listings:", err);
     return { listings: [], totalCount: 0 };
@@ -61,5 +89,19 @@ export function updateListing(id: string, data: Partial<CAR_RENTAL>) {
   } catch (error: any) {
     console.log("Error updating", error);
     return { success: false, message: error.message || "Something went wrong" };
+  }
+}
+
+export function getAllLocations(): string[] {
+  try {
+    const stmt = db.prepare(
+      `SELECT DISTINCT location FROM listings ORDER BY location`
+    );
+    const rows = stmt.all() as { location: string }[];
+
+    return rows.map((row) => row.location);
+  } catch (err) {
+    console.error("Error fetching locations:", err);
+    return [];
   }
 }

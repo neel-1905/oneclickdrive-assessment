@@ -121,7 +121,7 @@
     @apply border-border box-border;
   }
   body {
-    @apply bg-background text-foreground font-roboto h-screen;
+    @apply bg-background text-foreground font-roboto;
   }
 }
 
@@ -135,6 +135,7 @@
   * {
     @apply border-border outline-none;
   }
+
   body {
     @apply bg-background text-foreground;
   }
