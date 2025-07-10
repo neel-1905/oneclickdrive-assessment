@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -14,8 +14,15 @@ import EditListingDialog from "./EditListingDialog";
 import { useFeedback } from "@/context/FeedbackContext";
 import { useSessionUser } from "@/lib/useSessionUser";
 import { logAction } from "@/lib/apis/logs.actions";
+// import CarRentalFilters from "./CarRentalFilters";
 
-const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
+const CarRentalList = ({
+  listings,
+}: // locations,
+{
+  listings: CAR_RENTAL[];
+  locations: string[];
+}) => {
   const { show } = useFeedback();
   const user = useSessionUser();
 
@@ -24,6 +31,10 @@ const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
   const [currentDialogData, setCurrentDialogData] = useState<CAR_RENTAL | null>(
     null
   );
+
+  useEffect(() => {
+    setCarList(listings);
+  }, [listings]);
 
   const handleDialogOpen = (data: CAR_RENTAL) => {
     if (!data) return;

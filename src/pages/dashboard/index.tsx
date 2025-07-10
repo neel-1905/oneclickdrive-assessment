@@ -1,9 +1,9 @@
+import CarRentalFilters from "@/components/dashboard/CarRentalFilters";
 import CarRentalList from "@/components/dashboard/CarRentalList";
 import ListingPagination from "@/components/dashboard/ListingPagination";
 import SidebarLayout from "@/layouts/SidebarLayout";
-import { getAllListings } from "@/lib/apis/listings.apis";
-import { useSessionUser } from "@/lib/useSessionUser";
-import { CAR_RENTAL } from "@/types";
+import { getAllListings, getAllLocations } from "@/lib/apis/listings.apis";
+import { CAR_RENTAL, STATUS } from "@/types";
 import { GetServerSideProps } from "next";
 import React from "react";
 
@@ -12,13 +12,16 @@ type DashboardProps = {
   totalCount: number;
   limit: number;
   page: number;
+  locations: string[];
 };
 
-const Dashboard = ({ listings, limit, page, totalCount }: DashboardProps) => {
-  const user = useSessionUser();
-
-  console.log(user);
-
+const Dashboard = ({
+  listings,
+  limit,
+  page,
+  totalCount,
+  locations,
+}: DashboardProps) => {
   const totalPages = Math.ceil(totalCount / limit);
 
   return (
@@ -26,11 +29,10 @@ const Dashboard = ({ listings, limit, page, totalCount }: DashboardProps) => {
       <section className="flex flex-col flex-1 min-h-0 gap-4">
         <h1 className="text-xl font-medium">Car Rental Listings</h1>
 
-        {/* This wrapper enables both vertical + horizontal scrolling */}
-        <div className="grow shrink-0  rounded-lg border min-h-0">
-          {/* This ensures table is wide enough to scroll horizontally */}
-          <div className="w-full min-w-max overflow-auto">
-            <CarRentalList listings={listings} />
+        <div className="grow shrink-0 rounded-lg min-h-0">
+          <div className="w-full min-w-max overflow-auto flex flex-col gap-3">
+            <CarRentalFilters locations={locations} />
+            <CarRentalList listings={listings} locations={locations} />
             <ListingPagination currentPage={page} totalPages={totalPages} />
           </div>
         </div>
@@ -42,12 +44,23 @@ const Dashboard = ({ listings, limit, page, totalCount }: DashboardProps) => {
 export default Dashboard;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const query = context.query;
+
   const page = parseInt(context.query.page as string) || 1;
-  const limit = parseInt(context.query.limit as string) || 8;
+  const limit = parseInt(context.query.limit as string) || 5;
+  const location = (query.location as string) || undefined;
+  const status = (query.status as STATUS) || undefined;
+  const carName = (query.carName as string) || undefined;
 
-  console.log(page, limit);
+  const { listings, totalCount } = getAllListings({
+    page,
+    limit,
+    location,
+    status,
+    carName,
+  });
 
-  const { listings, totalCount } = getAllListings(page, limit);
+  const locations = getAllLocations();
 
   return {
     props: {
@@ -55,6 +68,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       totalCount,
       page,
       limit,
+      locations,
     },
   };
 };
