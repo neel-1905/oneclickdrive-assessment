@@ -48,7 +48,11 @@ const SideNav = () => {
       <SidebarSeparator />
       <SideNavContent />
       <SidebarFooter className="py-3 px-4">
-        <Button variant={`destructive`} onClick={handleLogout}>
+        <Button
+          variant={`ghost`}
+          className="text-base text-destructive hover:text-destructive/70"
+          onClick={handleLogout}
+        >
           <LogOut />
           <span>Logout</span>
         </Button>

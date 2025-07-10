@@ -51,7 +51,7 @@ const CarRentalFilters = ({ locations }: { locations: string[] }) => {
         query: { ...currentQuery, carName: debouncedSearch, page: 1 },
       });
     }
-  }, [debouncedSearch, currentQuery, router]);
+  }, [debouncedSearch]);
 
   const clearFilters = () => {
     setSelectedLocation("");
@@ -64,11 +64,11 @@ const CarRentalFilters = ({ locations }: { locations: string[] }) => {
   };
 
   return (
-    <div className="w-full flex flex-col sm:flex-row justify-between">
+    <div className="w-full gap-5 flex flex-col sm:flex-row justify-between">
       <Input
         type="text"
         placeholder="Search by name"
-        className="w-full sm:max-w-xs"
+        className="w-full sm:max-w-3xs"
         onChange={(e) => setSearch(e.target.value)}
         value={search}
       />
@@ -110,9 +110,9 @@ const CarRentalFilters = ({ locations }: { locations: string[] }) => {
           </SelectContent>
         </Select>
 
-        <Button size={`icon`} onClick={clearFilters}>
+        <Button size={`sm`} onClick={clearFilters}>
           <XIcon />
-          {/* Clear */}
+          Clear
         </Button>
       </div>
     </div>

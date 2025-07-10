@@ -17,9 +17,16 @@ import { useRouter } from "next/router";
 import { Loader2Icon } from "lucide-react";
 import { useFeedback } from "@/context/FeedbackContext";
 import { logAction } from "@/lib/apis/logs.actions";
+import { useSessionUser } from "@/lib/useSessionUser";
 
 const LoginForm = () => {
   const router = useRouter();
+  const user = useSessionUser();
+
+  if (user) {
+    router.back();
+  }
+
   const { show } = useFeedback();
 
   const form = useForm<z.infer<typeof loginSchema>>({
