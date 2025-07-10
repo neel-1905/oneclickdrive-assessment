@@ -16,7 +16,7 @@ export const editListingSchema = z.object({
       required_error: "Price per day is required.",
       invalid_type_error: "Price must be a number.",
     })
-    .min(0, "Price must be greater than 0."),
+    .min(1, "Price must be greater than 0."),
 
   status: z.enum(["pending", "approved", "rejected"], {
     required_error: "Status is required.",

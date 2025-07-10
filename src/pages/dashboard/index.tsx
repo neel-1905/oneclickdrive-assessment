@@ -48,8 +48,8 @@ export default Dashboard;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query;
 
-  const page = parseInt(context.query.page as string) || 1;
-  const limit = parseInt(context.query.limit as string) || 20;
+  const page = Number(context.query.page as string) || 1;
+  const limit = Number(context.query.limit as string) || 20;
   const location = (query.location as string) || undefined;
   const status = (query.status as STATUS) || undefined;
   const carName = (query.carName as string) || undefined;

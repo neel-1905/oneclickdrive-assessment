@@ -6,5 +6,5 @@ const insert = db.prepare(`
     VALUES (?,?,?)
     `);
 
-insert.run(randomUUID(), "admin@gmail.com", "admin123");
+insert.run(randomUUID(), "johndoe@gmail.com", "john123");
 console.log("User inserted");
