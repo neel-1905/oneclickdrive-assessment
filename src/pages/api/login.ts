@@ -37,7 +37,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
     return res
       .status(200)
-      .json({ message: "User login successful!", success: true });
+      .json({
+        message: "User login successful!",
+        success: true,
+        user: { id: user.id },
+      });
   } catch (err) {
     return res
       .status(500)

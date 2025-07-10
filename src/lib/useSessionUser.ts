@@ -1,8 +1,9 @@
 // Example: Fetch session user in useEffect
+import { USER } from "@/types";
 import { useEffect, useState } from "react";
 
 export function useSessionUser() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<USER>(null);
 
   useEffect(() => {
     async function fetchUser() {
