@@ -23,7 +23,7 @@ const Logs = (props: LogProps) => {
 
 export default Logs;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const logs = getAllLogs();
   return {
     props: {

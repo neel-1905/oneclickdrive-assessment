@@ -58,7 +58,7 @@ const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
 
       show("success", result.message);
 
-      const { logResponse, logResult } = await logAction({
+      await logAction({
         action: "updated status",
         target_id: id,
         target_type: "listing",
@@ -102,7 +102,7 @@ const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
     // alert(result.message);
     show("success", result.message);
 
-    const { logResponse, logResult } = await logAction({
+    await logAction({
       action: "updated listings",
       target_id: id,
       target_type: "listing",
