@@ -15,11 +15,13 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useRouter } from "next/router";
 import { Loader2Icon } from "lucide-react";
+import { useFeedback } from "@/context/FeedbackContext";
+import { logAction } from "@/lib/apis/logs.actions";
 
 const LoginForm = () => {
   const router = useRouter();
+  const { show } = useFeedback();
 
-  const [formError, setFormError] = useState<string>("");
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -44,15 +46,24 @@ const LoginForm = () => {
     try {
       result = await res.json();
     } catch (error) {
-      setFormError("Unexpected server error");
       console.log(error);
       return;
     }
 
     if (!res.ok) {
-      setFormError(result?.error);
+      show("error", result?.error);
       return;
     }
+
+    await logAction({
+      action: "login",
+      target_type: "user",
+      target_id: result?.user?.id,
+      user_id: result?.user?.id,
+      user_name: data.email,
+    });
+
+    show("success", result?.message);
 
     router.replace("/dashboard");
   };
@@ -95,10 +106,6 @@ const LoginForm = () => {
               </FormItem>
             )}
           />
-
-          {formError ? (
-            <p className="text-destructive text-sm">{formError}</p>
-          ) : null}
 
           <Button disabled={isSubmitting} type="submit" className="w-full">
             {isSubmitting ? <Loader2Icon className="animate-spin" /> : `Login`}

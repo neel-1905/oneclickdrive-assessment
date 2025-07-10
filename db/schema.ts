@@ -24,17 +24,16 @@ db.exec(`
   );
 `);
 
-// LOGS
 db.exec(`
-  CREATE TABLE IF NOT EXISTS logs (
+   CREATE TABLE IF NOT EXISTS logs (
     id TEXT PRIMARY KEY,
-    listing_id TEXT NOT NULL,
-    action TEXT CHECK(action IN ('approve', 'reject', 'edit')) NOT NULL,
-    admin_email TEXT NOT NULL,
-    field TEXT,
-    old_value TEXT,
-    new_value TEXT,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (listing_id) REFERENCES listings(id)
-  );
-`);
+    user_id TEXT NOT NULL,
+    user_name TEXT NOT NULL,
+    action TEXT NOT NULL,
+    target_type TEXT NOT NULL,
+    target_id TEXT NOT NULL,
+    "from" TEXT,
+    "to" TEXT,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+)`);

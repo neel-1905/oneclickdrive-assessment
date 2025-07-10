@@ -12,9 +12,12 @@ import StatusBadge from "./StatusBadge";
 import ActionMenu from "./ActionMenu";
 import EditListingDialog from "./EditListingDialog";
 import { useFeedback } from "@/context/FeedbackContext";
+import { useSessionUser } from "@/lib/useSessionUser";
+import { logAction } from "@/lib/apis/logs.actions";
 
 const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
   const { show } = useFeedback();
+  const user = useSessionUser();
 
   const [carList, setCarList] = useState(listings);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -34,36 +37,51 @@ const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
   };
 
   const handleStatusChange = async (id: string, status: STATUS) => {
-    console.log("updating", id, status);
+    const currentListing = carList?.find((car) => car.id === id);
+    if (user) {
+      const res = await fetch(`/api/listings/status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ id, status }),
+      });
 
-    const res = await fetch(`/api/listings/status`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({ id, status }),
-    });
+      const result = await res.json();
 
-    const result = await res.json();
+      if (!res.ok) {
+        console.log("Error", result?.error);
+        show("error", result.error);
+        return;
+      }
 
-    if (!res.ok) {
-      console.log("Error", result?.error);
-      show("error", result.error);
-      return;
+      show("success", result.message);
+
+      const { logResponse, logResult } = await logAction({
+        action: "updated status",
+        target_id: id,
+        target_type: "listing",
+        user_id: user.id,
+        user_name: user.email,
+        from: currentListing?.status,
+        to: status,
+      });
+
+      setCarList((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, status: status } : item
+        )
+      );
     }
-
-    show("success", result.message);
-
-    setCarList((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, status: status } : item))
-    );
   };
 
   const handleListingUpdate = async (
     id: string,
     updatedData: Partial<CAR_RENTAL>
   ) => {
+    if (!user) return;
+
     const res = await fetch(`/api/listings/update`, {
       method: "PUT",
       headers: {
@@ -83,6 +101,16 @@ const CarRentalList = ({ listings }: { listings: CAR_RENTAL[] }) => {
 
     // alert(result.message);
     show("success", result.message);
+
+    const { logResponse, logResult } = await logAction({
+      action: "updated listings",
+      target_id: id,
+      target_type: "listing",
+      user_id: user.id,
+      user_name: user.email,
+      from: currentDialogData?.status,
+      to: updatedData?.status,
+    });
 
     setCarList((prev) =>
       prev.map((item) => (item.id === id ? { ...item, ...updatedData } : item))

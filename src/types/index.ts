@@ -22,3 +22,15 @@ export type CAR_RENTAL_UPDATE = {
   price_per_day?: number;
   status?: STATUS;
 };
+
+export type LOG = {
+  id: string;
+  user_id: string;
+  user_name: string;
+  action: string;
+  target_type: string;
+  target_id: string;
+  from?: string;
+  to?: string;
+  createdAt?: string;
+};

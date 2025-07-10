@@ -18,9 +18,10 @@ const ListingPagination = ({
   const pageLink = (page: number) => `/dashboard?page=${page}`;
 
   const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === totalPages;
 
   return (
-    <Pagination className="justify-end py-2">
+    <Pagination className="justify-end py-2 px-2">
       <PaginationContent>
         {!isFirstPage ? (
           <PaginationItem>
@@ -48,9 +49,11 @@ const ListingPagination = ({
           </PaginationItem>
         )} */}
 
-        <PaginationItem>
-          <PaginationNext href={pageLink(currentPage + 1)} />
-        </PaginationItem>
+        {!isLastPage && (
+          <PaginationItem>
+            <PaginationNext href={pageLink(currentPage + 1)} />
+          </PaginationItem>
+        )}
       </PaginationContent>
     </Pagination>
   );

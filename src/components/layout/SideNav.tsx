@@ -9,17 +9,33 @@ import SideNavContent from "./SideNavContent";
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/router";
+import { logAction } from "@/lib/apis/logs.actions";
+import { useSessionUser } from "@/lib/useSessionUser";
+import { useFeedback } from "@/context/FeedbackContext";
 
 const SideNav = () => {
   const router = useRouter();
+  const user = useSessionUser();
+  const { show } = useFeedback();
 
   const handleLogout = async () => {
+    if (!user) return;
+
     await fetch(`/api/logout`, {
       method: "POST",
     });
 
+    await logAction({
+      action: "logout",
+      target_type: "user",
+      target_id: user?.id,
+      user_id: user?.id,
+      user_name: user?.email,
+    });
+
+    show("success", "User logged out!");
+
     router.replace("/");
-    // window.location.href = "/"
   };
 
   return (
