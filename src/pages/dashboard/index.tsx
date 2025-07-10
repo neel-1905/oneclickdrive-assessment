@@ -26,15 +26,17 @@ const Dashboard = ({
 
   return (
     <SidebarLayout>
-      <section className="flex flex-col flex-1 min-h-0 gap-4">
+      <section className="flex flex-col flex-1 min-h-0 gap-4 w-full">
         <h1 className="text-xl font-medium">Car Rental Listings</h1>
 
-        <div className="grow shrink-0 rounded-lg min-h-0">
-          <div className="w-full min-w-max overflow-auto flex flex-col gap-3">
-            <CarRentalFilters locations={locations} />
+        <div className="flex flex-col flex-1 min-h-0 gap-4">
+          <CarRentalFilters locations={locations} />
+
+          <div className="flex-1 overflow-auto w-full">
             <CarRentalList listings={listings} locations={locations} />
-            <ListingPagination currentPage={page} totalPages={totalPages} />
           </div>
+
+          <ListingPagination currentPage={page} totalPages={totalPages} />
         </div>
       </section>
     </SidebarLayout>
@@ -47,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query;
 
   const page = parseInt(context.query.page as string) || 1;
-  const limit = parseInt(context.query.limit as string) || 5;
+  const limit = parseInt(context.query.limit as string) || 20;
   const location = (query.location as string) || undefined;
   const status = (query.status as STATUS) || undefined;
   const carName = (query.carName as string) || undefined;

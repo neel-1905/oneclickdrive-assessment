@@ -6,10 +6,14 @@ import React, { ReactNode } from "react";
 const SidebarLayout = ({ children }: { children: ReactNode }) => {
   return (
     <SidebarProvider>
-      <SideNav />
-      <div className="flex-1 bg-background flex flex-col">
-        <DashboardHeader />
-        <main className="flex-1 p-4 flex flex-col gap-5">{children}</main>
+      <div className="flex h-screen w-full overflow-hidden">
+        <SideNav />
+        <div className="flex flex-col flex-1 w-full bg-background">
+          <DashboardHeader />
+          <main className="flex flex-col flex-1 w-full p-4 gap-5 overflow-hidden">
+            {children}
+          </main>
+        </div>
       </div>
     </SidebarProvider>
   );
